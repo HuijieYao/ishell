@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ishell.mapper.OrderMapper">
+    <insert id="creatOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order`(`userId`,`merchantId`) VALUES (#{userId},#{merchantId});
+    </insert>
+    <insert id="insertOrderDetails">
+        INSERT INTO `order_details` (`orderId`,`goodsId`,`name`,`describe`,`price`,`num`,`pay`,`img`)
+        VALUES (#{orderId},#{goodsId},#{name},#{describe},#{price},#{num},#{pay},#{img});
+    </insert>
+    <update id="overOrder">
+        UPDATE `order` SET `getDate`=#{getDate} WHERE `id`=#{orderId};
+    </update>
+    <update id="pay">
+        UPDATE `order` SET `buyDate`=#{buyDate} WHERE `id`=#{orderId};
+    </update>
+    <select id="getOrders" resultType="com.ishell.entity.Order">
+        SELECT * FROM `order` WHERE `userId`=#{userId} order by `buyDate` desc LIMIT #{pageA},#{pageB};
+    </select>
+    <select id="getOrderDetails" resultType="com.ishell.entity.OrderDetails">
+        SELECT * FROM `order_details` WHERE `orderId`=#{orderId};
+    </select>
+    <select id="getTotalOrders" resultType="java.lang.Integer">
+        SELECT count(*) FROM `order` WHERE `userId`=#{userId};
+    </select>
+</mapper>

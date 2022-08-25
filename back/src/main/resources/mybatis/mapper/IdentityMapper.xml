@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ishell.mapper.IdentifyMapper">
+<resultMap id="pathMap" type="map">
+    <result property="1" column="phylum"/>
+    <result property="2" column="classification"/>
+    <result property="3" column="order"/>
+    <result property="4" column="family"/>
+    <result property="5" column="genus"/>
+</resultMap>
+    <insert id="insert_history_identify" parameterType="com.ishell.entity.Identify">
+        INSERT INTO history_identify(`userid`,`img`,`sname`,`name`,`prob`) VALUES(#{userid},#{img},#{sname},#{name},#{prob});
+    </insert>
+    <select id="GetPath" resultMap="pathMap">
+        SELECT `phylum`,`classification`,`order`,`family`,`genus` FROM `shellfish` WHERE
+        `sname`=#{string} or `name`=#{string} or `phylum`=#{string}
+        or `classification`=#{stirng} or `order`=#{string} or `family`=#{string}
+        or `genus`=#{string} Limit 0,1;
+    </select>
+    <select id="GetHistory" resultType="com.ishell.entity.Identify">
+        SELECT * FROM `history_identify` WHERE `userid`=#{userId} order by `date` desc;
+    </select>
+</mapper>

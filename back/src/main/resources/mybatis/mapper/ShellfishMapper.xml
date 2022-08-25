@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ishell.mapper.ShellfishMapper">
+    <resultMap id="shellfishMap" type="java.util.Map">
+        <result column="name" property="name"/>
+        <result column="sname" property="sname"/>
+    </resultMap>
+    <select id="GetCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `shellfish`;
+    </select>
+    <select id="GetShellFish" resultType="com.ishell.entity.Shellfish">
+        SELECT * FROM shellfish S WHERE S.sname LIKE #{sname};
+    </select>
+    <select id="SearchShellFish" resultType="com.ishell.entity.Shellfish">
+        SELECT * FROM shellfish S WHERE
+        <choose>
+            <when test="mysql_cn.length()!=0">
+                ${mysql_cn}
+            </when>
+        </choose>
+
+        <choose>
+            <when test="mysql_cn.length()!=0 and mysql_en.length()!=0">
+                OR
+            </when>
+        </choose>
+
+        <choose>
+            <when test="mysql_en.length()!=0">
+                ${mysql_en}
+            </when>
+        </choose>
+    </select>
+    <select id="GetShellFishimg" resultType="java.lang.String">
+        SELECT `img` FROM `shellfishimg` WHERE `sname`=#{sname} LIMIT 0,1;
+    </select>
+    <select id="GetClass" resultType="com.ishell.entity.ResultShellfish">
+        SELECT DISTINCT `classification` as name FROM `shellfish` WHERE `phylum`=#{phylum};
+    </select>
+    <select id="GetOrder" resultType="com.ishell.entity.ResultShellfish">
+        SELECT DISTINCT `order` as name FROM `shellfish` WHERE `classification`=#{classification};
+    </select>
+    <select id="GetFamily" resultType="com.ishell.entity.ResultShellfish">
+        SELECT DISTINCT `family` as name FROM `shellfish` WHERE `order`=#{order};
+    </select>
+    <select id="GetGenus" resultType="com.ishell.entity.ResultShellfish">
+        SELECT DISTINCT `genus` as name FROM `shellfish` WHERE `family`=#{family};
+    </select>
+    <select id="GetShellfish" resultType="com.ishell.entity.ResultShellfish">
+        SELECT `id`,`name`,`sname` FROM `shellfish` WHERE `genus`=#{genus};
+    </select>
+    <select id="SearchShellFishName" resultType="java.lang.String">
+        SELECT DISTINCT `sname` FROM `shellfishname` WHERE `name` like #{string};
+    </select>
+    <select id="GetGenus2" resultType="com.ishell.entity.ResultShellfish">
+        SELECT `id`,`name`,`sname` FROM `shellfish`
+        WHERE `family`=#{family} AND `genus`=#{genus};
+    </select>
+    <select id="SearchShellFishClass" resultType="java.lang.String" parameterType="String">
+        SELECT DISTINCT
+        <if test="string.charAt(string.length() - 1)=='纲'">
+            `classification`
+        </if>
+        <if test="string.charAt(string.length() - 1)=='目'">
+            `order`
+        </if>
+        <if test="string.charAt(string.length() - 1)=='科'">
+            `family`
+        </if>
+        <if test="string.charAt(string.length() - 1)=='属'">
+            `genus`
+        </if>
+        FROM `shellfish`
+        WHERE
+        <if test="string.charAt(string.length() - 1)=='纲'">
+            `classification`
+        </if>
+        <if test="string.charAt(string.length() - 1)=='目'">
+            `order`
+        </if>
+        <if test="string.charAt(string.length() - 1)=='科'">
+            `family`
+        </if>
+        <if test="string.charAt(string.length() - 1)=='属'">
+            `genus`
+        </if>
+        like
+        #{string2};
+    </select>
+    <select id="GetMapShell" resultType="com.ishell.entity.Shellfish">
+        SELECT * FROM `shellfish` LIMIT #{pageA},#{pageB};
+    </select>
+    <select id="GetShellFishFromId" resultType="com.ishell.entity.Shellfish">
+        SELECT * FROM `shellfish` WHERE `id`=#{id};
+    </select>
+    <select id="getMapInfo" resultType="com.ishell.entity.Shellfish">
+        SELECT * FROM `shellfish` WHERE `place` LIKE CONCAT('%', #{place},'%');
+    </select>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ishell.mapper.UserMapper">
+    <delete id="Cancel">
+        DELETE FROM `user` WHERE `userid`=#{userId};
+    </delete>
+    <select id="checkUser" resultType="com.ishell.entity.User">
+        SELECT *
+        FROM `user`
+        WHERE `phonenumber` = #{phone}
+           OR `email` = #{email};
+    </select>
+
+    <insert id="userLogon">
+        INSERT INTO `user` (`name`, `password`, `email`, `phonenumber`)
+        VALUES (#{name}, #{password}, #{email}, #{phone});
+    </insert>
+
+    <select id="getUserID" resultType="String">
+        SELECT `userid`
+        FROM `user`
+        WHERE `name` = #{account}
+           OR `email` = #{account}
+           OR `phonenumber` = #{account};
+    </select>
+
+    <select id="userLogin" resultType="com.ishell.entity.User">
+        SELECT *
+        FROM `user`
+        WHERE `name` = #{account}
+           OR `email` = #{account}
+           OR `phonenumber` = #{account} AND `password` = #{password};
+    </select>
+
+    <select id="getUserInfo" resultType="com.ishell.entity.User">
+        SELECT *
+        FROM `user`
+        WHERE `userid` = #{id};
+    </select>
+
+    <update id="uploadProfilePhoto">
+        UPDATE `user`
+        SET `photo` = #{path} WHERE `userid`=#{userid};
+    </update>
+</mapper>

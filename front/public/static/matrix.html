@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>matrix</title>
+    <link rel="stylesheet" type="text/css" href="http://file.sarom.cn/ishell/matrix/layer.css" />
+</head>
+
+<body>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #examples {
+            background: #ddd;
+            height: 460px;
+            margin-bottom: 2em;
+            overflow: hidden;
+            padding: 0;
+            position: relative;
+            border-top: solid 1px #fff;
+            border-bottom: solid 1px #fff;
+        }
+
+        #examples:after,
+        #examples:before {
+            content: "";
+            display: block;
+            width: 100%;
+            position: absolute;
+            background: white;
+            height: 16px;
+            z-index: 2;
+        }
+
+        #examples:before {
+            bottom: -16px;
+            box-shadow: 0px -8px 16px rgba(0, 0, 0, .3);
+        }
+
+        #examples:after {
+            top: -16px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, .3);
+        }
+
+        #examples-deep {
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        #examples svg,
+        #examples canvas {
+            position: absolute;
+        }
+
+        .example-mesh {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2px;
+        }
+
+        .example-anchor path {
+            fill: none;
+            pointer-events: all;
+        }
+
+        .example-anchor path:hover {
+            stroke: #000;
+            stroke-width: 2px;
+        }
+    </style>
+    <div id="examples">
+        <div id="examples-deep"></div>
+    </div>
+    <script src="http://file.sarom.cn/ishell/js/jquery-2.0.2.min.js"></script>
+    <script src="http://file.sarom.cn/ishell/js/layer.js"></script>
+    <script src="http://file.sarom.cn/ishell/js/d3.v4.min.js" charset="utf-8"></script>
+    <script src="http://file.sarom.cn/ishell/js/matrix_img.js" charset="utf-8"></script>
+</body>
+
+</html>
