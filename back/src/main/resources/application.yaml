@@ -5,15 +5,15 @@ server:
 spring:
   datasource:
     username: ishell
-    password: ishell8027
-    url: jdbc:mysql://101.133.164.208:3306/ishell?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    password: 密码
+    url: jdbc:mysql://IP:端口/ishell?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       max-lifetime: 50000
   mail:
     host: smtp.qq.com
-    username: 2592345590@qq.com
-    password: aqrugpnvcvnmebaj
+    username: 邮箱
+    password: 授权码
     default-encoding: UTF-8
     protocol: smtp
     test-connection: true
@@ -35,8 +35,8 @@ spring:
       max-request-size: 1000MB
   redis:
     host: 101.133.164.208
-    port: 63795
-    password: 71FE1012A95B4CDA361DE3373BB9C13A
+    port: Redis端口
+    password: Redis密码
     database: 0
     jedis:
       pool:
